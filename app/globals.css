@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { color-scheme: dark; }
+body { background: radial-gradient(900px 400px at 85% -5%, rgba(139,123,255,.18), transparent), #0a0f24; color: #e6e9f5; font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #4ea8ff; outline-offset: 2px; }
+.card { @apply rounded-xl border border-line bg-panel/80; }
+.input { @apply w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500; }
+.btn { @apply inline-flex items-center justify-center rounded-lg bg-violet px-4 py-2 text-sm font-semibold text-ink hover:bg-sky transition-colors; }
+.chip { @apply rounded-full border border-line px-2 py-0.5 text-xs text-slate-300; }
+.sample { @apply rounded-full bg-amber-400/15 px-2 py-0.5 text-xs text-amber-300; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Company {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String
+  website     String
+  models      AIModel[]
+  @@index([name])
+}
+
+model Provider {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  name        String
+  description String
+  website     String
+  pricing     ModelPricing[]
+  @@index([name])
+}
+
+model AIModel {
+  id            String            @id @default(cuid())
+  slug          String            @unique
+  name          String
+  description   String
+  category      String
+  modalities    String[]
+  contextWindow Int?
+  inputPrice    Float? // USD per 1M tokens (list price)
+  outputPrice   Float?
+  releaseDate   DateTime?
+  featured      Boolean           @default(false)
+  isSample      Boolean           @default(true) // true = demo data, NOT verified
+  source        String?
+  lastUpdated   DateTime          @default(now())
+  createdAt     DateTime          @default(now())
+  companyId     String
+  company       Company           @relation(fields: [companyId], references: [id], onDelete: Restrict)
+  capabilities  ModelCapability[]
+  pricing       ModelPricing[]
+  results       BenchmarkResult[]
+  @@index([companyId])
+  @@index([category])
+  @@index([releaseDate])
+  @@index([inputPrice])
+  @@index([contextWindow])
+}
+
+model ModelCapability {
+  id      String  @id @default(cuid())
+  name    String
+  modelId String
+  model   AIModel @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  @@unique([modelId, name])
+  @@index([name])
+}
+
+model ModelPricing {
+  id            String   @id @default(cuid())
+  modelId       String
+  providerId    String
+  inputPrice    Float
+  outputPrice   Float
+  isSample      Boolean  @default(true)
+  source        String?
+  updatedAt     DateTime @default(now())
+  model         AIModel  @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  provider      Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  @@unique([modelId, providerId])
+  @@index([providerId])
+}
+
+model Benchmark {
+  id          String            @id @default(cuid())
+  slug        String            @unique
+  name        String
+  category    String
+  description String
+  unit        String            @default("%")
+  url         String?
+  results     BenchmarkResult[]
+  @@index([category])
+}
+
+model BenchmarkResult {
+  id          String    @id @default(cuid())
+  modelId     String
+  benchmarkId String
+  score       Float
+  source      String // required: where the number came from
+  sourceUrl   String?
+  measuredAt  DateTime?
+  model       AIModel   @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  benchmark   Benchmark @relation(fields: [benchmarkId], references: [id], onDelete: Cascade)
+  @@unique([modelId, benchmarkId])
+  @@index([benchmarkId, score])
+}
