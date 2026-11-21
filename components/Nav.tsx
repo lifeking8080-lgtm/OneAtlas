@@ -1,23 +1,3 @@
 import Link from "next/link";
 const links = [["/models", "Models"], ["/compare", "Compare"], ["/rankings", "Rankings"], ["/labs", "AI labs"], ["/providers", "Providers"]];
-export default function Nav() {
-  return (
-    <header className="sticky top-0 z-20 border-b border-line bg-ink/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
-        <Link href="/" className="text-lg font-bold tracking-tight">One<span className="text-violet">Atlas</span></Link>
-        <nav className="ml-4 hidden gap-5 text-sm text-slate-300 md:flex">
-          {links.map(([h, l]) => <Link key={h} href={h} className="hover:text-white">{l}</Link>)}
-        </nav>
-        <form action="/search" className="ml-auto flex w-full max-w-xs gap-2">
-          <input name="q" required maxLength={100} placeholder="Search models and providers" aria-label="Search" className="input" />
-        </form>
-        <details className="relative md:hidden">
-          <summary className="btn cursor-pointer list-none">Menu</summary>
-          <div className="card absolute right-0 mt-2 flex w-44 flex-col gap-1 p-2 text-sm">
-            {links.map(([h, l]) => <Link key={h} href={h} className="rounded px-2 py-2 hover:bg-line">{l}</Link>)}
-          </div>
-        </details>
-      </div>
-    </header>
-  );
-}
+export default function Nav() { return (<header className="sticky top-0 z-20 border-b border-line bg-ink/90 backdrop-blur"><div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3"><Link href="/" className="text-lg font-bold tracking-tight">One<span className="text-violet">Atlas</span></Link><nav className="ml-4 hidden gap-5 text-sm text-slate-300 md:flex">{links.map(([h,l])=><Link key={h} href={h} className="hover:text-white">{l}</Link>)}</nav><form action="/search" className="ml-auto flex w-full max-w-xs gap-2"><input name="q" required maxLength={100} placeholder="Search models and providers" aria-label="Search" className="input" /></form><Link href="/admin/login" aria-label="Admin login" title="Admin login" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-panel text-sm font-bold hover:border-violet">A</Link><details className="relative md:hidden"><summary className="btn cursor-pointer list-none">Menu</summary><div className="card absolute right-0 mt-2 flex w-44 flex-col gap-1 p-2 text-sm">{links.map(([h,l])=><Link key={h} href={h} className="rounded px-2 py-2 hover:bg-line">{l}</Link>)}</div></details></div></header>); }

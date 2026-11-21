@@ -28,3 +28,10 @@ Import the repo, add `DATABASE_URL` and `DIRECT_URL` in Environment Variables, d
 
 ## Adding real data
 Insert rows into `Benchmark`/`BenchmarkResult` (with `source`, `sourceUrl`) and set `isSample=false` on verified models and prices.
+
+
+## Admin
+See `ADMIN_SETUP.md` for Supabase Auth, Render environment variables and security notes. Admin entry: `/admin/login`.
+
+## Free AI Research Assistant (Groq + LangSearch)
+Admin-only research tool with editable preview and approve-before-save. See `AI_RESEARCH_SETUP.md` for env vars (`GROQ_API_KEY`, `GROQ_MODEL`, `LANGSEARCH_API_KEY`) and Render deployment steps.
