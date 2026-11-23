@@ -419,8 +419,6 @@ TEAM ARJUNAA
 
 - Shivraj Shivaji Patil
 - Sanika Madhukar Jadhav
-- Anushka Jitendra Dhale
-- Vaishnavi Vitthal Shivankar
 
 ---
 
